@@ -17,12 +17,6 @@ public class App {
 
         int lastId = 0;
 
-//        Motivation motivation0 = null;
-//        Motivation motivation1 = null;
-//        Motivation motivation2 = null;
-
-//        Motivation[] motivations = new Motivation[10];
-
         List<Motivation> motivations = new ArrayList<>();
 
         while (true) {
@@ -44,43 +38,33 @@ public class App {
                 System.out.print("source : ");
                 String source = sc.nextLine();
 
-                Motivation motivation = new Motivation();
-                motivation.id = id;
-                motivation.body = body;
-                motivation.source = source;
+                Motivation motivation = new Motivation(id, body, source);
 
                 motivations.add(motivation);
-
-
-//                if (motivation.id == 1) {
-//                    motivation0 = motivation;
-//                } else if (motivation.id == 2) {
-//                    motivation1 = motivation;
-//                } else if (motivation.id == 3) {
-//                    motivation2 = motivation;
-//                }
-
-//                motivations[id - 1] = motivation;
 
                 System.out.printf("%d번 motivation이 등록되었습니다\n", id);
                 lastId++;
             } else if (cmd.equals("list")) {
                 System.out.println("=".repeat(40));
-                System.out.printf("   번호   /    source    /    motivation   \n");
-//                System.out.println(motivation2.toString());
-//                System.out.println(motivation1.toString());
-//                System.out.println(motivation0.toString());
-
-//                for (Motivation motivation : motivations) {
-//                    System.out.println(motivation.toString());
-//                }
+                System.out.printf("   번호   /    source      /    body   \n");
 
                 if (motivations.size() == 0) {
                     System.out.println("등록된거 없음 xxxxx");
-                } else {
-                    System.out.println("1개 이상 있음 oooo");
+                    continue;
                 }
+                for (int i = motivations.size() - 1; i >= 0; i--) {
+                    Motivation motivation = motivations.get(i);
 
+                    if (motivation.getSource().length() > 7) {
+                        System.out.printf("   %d     /    %s   /    %s   \n", motivation.getId(), motivation.getSource().substring(0, 7) + "...", motivation.getBody());
+                        continue;
+                    }
+                    System.out.printf("   %d     /    %s     /    %s   \n", motivation.getId(), motivation.getSource(), motivation.getBody());
+                }
+                System.out.println("=".repeat(40));
+
+            } else {
+                System.out.println("사용할 수 없는 명령어야");
             }
         }
 
@@ -89,7 +73,39 @@ public class App {
 }
 
 class Motivation {
-    int id;
+    private int id;
+    private String body;
+    private String source;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Motivation(int id, String body, String source) {
+        this.id = id;
+        this.body = body;
+        this.source = source;
+    }
 
     @Override
     public String toString() {
@@ -100,6 +116,4 @@ class Motivation {
                 '}';
     }
 
-    String body;
-    String source;
 }
