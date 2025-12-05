@@ -1,5 +1,6 @@
 package org.example.motivation.controller;
 
+import org.example.Container;
 import org.example.motivation.entity.Motivation;
 
 import java.util.*;
@@ -9,18 +10,12 @@ public class MotivationController {
     int lastId = 0; // 몇 번까지 썼더라?
     List<Motivation> motivations = new ArrayList<>(); // motivation 저장소
 
-    private Scanner sc;
-
-    public MotivationController(Scanner sc) {
-        this.sc = sc;
-    }
-
     public void add() {
         int id = lastId + 1;
         System.out.print("body : ");
-        String body = sc.nextLine();
+        String body = Container.getSc().nextLine();
         System.out.print("source : ");
-        String source = sc.nextLine();
+        String source = Container.getSc().nextLine();
 
         Motivation motivation = new Motivation(id, body, source);
 
